@@ -1,1 +1,154 @@
-<!doctype html><html lang="es"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Gestión residencial</title><link rel="stylesheet" href="styles.css"></head><body><section id="login"><form id="loginForm" class="card"><h1>Gestión residencial</h1><input id="user" value="admin" placeholder="Usuario" required><input id="pass" type="password" value="123456" placeholder="Contraseña" required><button>Ingresar</button><p id="loginError"></p></form></section><main id="panel" hidden><header><h1>Panel administrativo</h1><button id="logout">Cerrar sesión</button></header><nav><button data-tab="towers">Torres</button><button data-tab="apartments">Apartamentos</button><button data-tab="vehicles">Vehículos</button><button data-tab="news">Novedades</button></nav><section id="content"></section></main><script src="app.js"></script></body></html>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Gestión Residencial - Control</title>
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Estilos -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+
+<body>
+
+<!-- PANTALLA DE LOGIN -->
+<div id="loginContainer" class="login-wrapper">
+  <div class="login-panel">
+    <div class="login-header">🏢 Gestión Residencial</div>
+    <p class="login-subtitle">Sistema de Control - Acceso Administrativo</p>
+    
+    <form id="loginForm">
+      <input type="text" id="username" placeholder="Usuario" value="admin" required>
+      <input type="password" id="password" placeholder="Contraseña" value="123456" required>
+      <button type="submit" class="btn-primary">🔓 Ingresar</button>
+      <p id="loginError" class="error-msg"></p>
+    </form>
+    
+    <p class="login-hint">Demo: admin / 123456</p>
+  </div>
+</div>
+
+<!-- PANEL PRINCIPAL -->
+<div id="mainPanel" hidden>
+  <header>
+    <div class="logo">🏢 Gestión <span>Residencial</span></div>
+    <div class="header-right">
+      <div class="date-badge">📅 <span id="todayDate"></span></div>
+      <button id="logoutBtn" class="btn-logout">🚪 Salir</button>
+    </div>
+  </header>
+
+  <main>
+    <!-- NAVEGACIÓN DE MÓDULOS -->
+    <div class="modules-nav">
+      <button class="module-btn active" data-module="vehicles">🚗 Vehículos</button>
+      <button class="module-btn" data-module="towers">🏗️ Torres</button>
+      <button class="module-btn" data-module="apartments">🏠 Apartamentos</button>
+      <button class="module-btn" data-module="news">📰 Novedades</button>
+    </div>
+
+    <!-- MÓDULO: VEHÍCULOS -->
+    <div id="vehiclesModule" class="module active">
+      <!-- Búsqueda Rápida -->
+      <div class="panel">
+        <div class="panel-title">🔍 Búsqueda Rápida de Vehículos</div>
+        <input type="text" id="vehicleSearch" placeholder="Escribe la placa (Ej: ABC123)">
+        <div id="vehicleSearchResults" class="search-results" style="display:none;"></div>
+      </div>
+
+      <!-- Formulario Nuevo Vehículo -->
+      <div class="panel">
+        <div class="panel-title">➕ Registrar Nuevo Vehículo</div>
+        <form id="vehicleForm" class="form-grid">
+          <input type="text" id="vehiclePlate" placeholder="Placa (ABC123)" required>
+          <input type="text" id="vehicleBrand" placeholder="Marca" required>
+          <select id="vehicleColor" required>
+            <option value="">-- Color --</option>
+            <option value="blanco">⚪ Blanco</option>
+            <option value="negro">⚫ Negro</option>
+            <option value="gris">🔘 Gris</option>
+            <option value="rojo">🔴 Rojo</option>
+            <option value="azul">🔵 Azul</option>
+            <option value="verde">🟢 Verde</option>
+          </select>
+          <input type="text" id="vehicleObservations" placeholder="Observaciones">
+          <button type="submit" class="btn-primary" style="grid-column: 1/-1;">💾 Guardar Vehículo</button>
+        </form>
+      </div>
+
+      <!-- Listado -->
+      <div class="panel">
+        <div class="panel-title">📋 Vehículos Registrados</div>
+        <div id="vehiclesList" class="list-container"></div>
+      </div>
+    </div>
+
+    <!-- MÓDULO: TORRES -->
+    <div id="towersModule" class="module">
+      <div class="panel">
+        <div class="panel-title">➕ Nueva Torre</div>
+        <form id="towerForm" class="form-grid">
+          <input type="text" id="towerName" placeholder="Nombre de la torre" required>
+          <button type="submit" class="btn-primary">💾 Guardar Torre</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">🏗️ Torres Registradas</div>
+        <div id="towersList" class="list-container"></div>
+      </div>
+    </div>
+
+    <!-- MÓDULO: APARTAMENTOS -->
+    <div id="apartmentsModule" class="module">
+      <div class="panel">
+        <div class="panel-title">➕ Nuevo Apartamento</div>
+        <form id="apartmentForm" class="form-grid">
+          <input type="text" id="apartmentNumber" placeholder="Número apartamento" required>
+          <select id="apartmentTower" required>
+            <option value="">-- Seleccionar torre --</option>
+          </select>
+          <button type="submit" class="btn-primary" style="grid-column: 1/-1;">💾 Guardar Apartamento</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">🏠 Apartamentos Registrados</div>
+        <div id="apartmentsList" class="list-container"></div>
+      </div>
+    </div>
+
+    <!-- MÓDULO: NOVEDADES -->
+    <div id="newsModule" class="module">
+      <div class="panel">
+        <div class="panel-title">➕ Nueva Novedad</div>
+        <form id="newsForm" class="form-grid">
+          <input type="text" id="newsTitle" placeholder="Título" required style="grid-column: 1/-1;">
+          <textarea id="newsDescription" placeholder="Descripción" style="grid-column: 1/-1; min-height: 80px;"></textarea>
+          <select id="newsApartment" style="grid-column: 1/-1;">
+            <option value="">-- Apartamento (opcional) --</option>
+          </select>
+          <button type="submit" class="btn-primary" style="grid-column: 1/-1;">💾 Guardar Novedad</button>
+        </form>
+      </div>
+
+      <div class="panel">
+        <div class="panel-title">📰 Novedades Registradas</div>
+        <div id="newsList" class="list-container"></div>
+      </div>
+    </div>
+  </main>
+
+  <footer>
+    <p>🛡️ Sistema de Gestión Residencial · Seguridad y Control</p>
+  </footer>
+</div>
+
+<script src="app.js"></script>
+</body>
+</html>
