@@ -7,7 +7,7 @@ const state = {
     vehicles: [],
     news: []
   },
-  currentModule: 'vehicles'
+  currentModule: 'locations'
 };
 
 // Utilidades
@@ -96,91 +96,12 @@ document.querySelectorAll('.module-btn').forEach(btn => {
   });
 });
 
-// ==================== VEHÍCULOS ====================
-async function loadVehicles(search = '') {
-  try {
-    const endpoint = search ? `/vehicles?plate=${search}` : '/vehicles';
-    state.data.vehicles = await api(endpoint);
-    renderVehicles();
-  } catch (e) { toast(e.message, 'error'); }
-}
-
-function renderVehicles() {
-  const list = $('vehiclesList');
-  if (!state.data.vehicles.length) {
-    list.innerHTML = '<div class="empty-state"><div class="empty-icon">🚗</div><p>No hay vehículos registrados</p></div>';
-    return;
-  }
-  list.innerHTML = `<table>
-    <thead><tr><th>Placa</th><th>Marca</th><th>Color</th><th>Observaciones</th><th>Acciones</th></tr></thead>
-    <tbody>
-      ${state.data.vehicles.map(v => `<tr>
-        <td data-label="Placa"><span class="plate">${v.plate}</span></td>
-        <td data-label="Marca">${esc(v.brand)}</td>
-        <td data-label="Color">${esc(v.color)}</td>
-        <td data-label="Observaciones">${esc(v.observations || '-')}</td>
-        <td data-label="Acciones"><div class="actions">
-          <button class="btn-edit" onclick="editVehicle(${v.id})">✏ Editar</button>
-          <button class="btn-danger" onclick="deleteVehicle(${v.id})">🗑 Eliminar</button>
-        </div></td>
-      </tr>`).join('')}
-    </tbody>
-  </table>`;
-}
-
-$('vehicleForm').addEventListener('submit', async (e) => {
-  e.preventDefault();
-  const plate = $('vehiclePlate').value.toUpperCase().trim();
-  const brand = $('vehicleBrand').value.trim();
-  const color = $('vehicleColor').value;
-  const obs = $('vehicleObservations').value.trim();
-  try {
-    await api('/vehicles', 'POST', { plate, brand, color, observations: obs });
-    toast('✅ Vehículo guardado');
-    $('vehicleForm').reset();
-    loadVehicles();
-  } catch (e) { toast(e.message, 'error'); }
-});
-
-function editVehicle(id) {
-  const v = state.data.vehicles.find(x => x.id === id);
-  if (!v) return;
-  const plate = prompt('Placa:', v.plate);
-  if (plate === null) return;
-  const brand = prompt('Marca:', v.brand);
-  if (brand === null) return;
-  const color = prompt('Color:', v.color);
-  if (color === null) return;
-  const obs = prompt('Observaciones:', v.observations || '');
-  if (obs === null) return;
-  
-  api(`/vehicles/${id}`, 'PUT', { plate: plate.toUpperCase(), brand, color, observations: obs })
-    .then(() => { toast('✏ Actualizado'); loadVehicles(); })
-    .catch(e => toast(e.message, 'error'));
-}
-
-function deleteVehicle(id) {
-  if (!confirm('¿Eliminar vehículo?')) return;
-  api(`/vehicles/${id}`, 'DELETE')
-    .then(() => { toast('🗑 Eliminado'); loadVehicles(); })
-    .catch(e => toast(e.message, 'error'));
-}
-
-$('vehicleSearch').addEventListener('input', (e) => {
-  const val = e.target.value.trim();
-  if (val.length < 2) {
-    $('vehicleSearchResults').style.display = 'none';
-    return;
-  }
-  loadVehicles(val);
-});
-
 // ==================== TORRES ====================
 async function loadTowers() {
   try {
     state.data.towers = await api('/towers');
     renderTowers();
-    updateAptSelect();
+    updateApartmentTowerSelect();
   } catch (e) { toast(e.message, 'error'); }
 }
 
@@ -194,10 +115,10 @@ function renderTowers() {
     <thead><tr><th>Nombre</th><th>Acciones</th></tr></thead>
     <tbody>
       ${state.data.towers.map(t => `<tr>
-        <td data-label="Nombre">${esc(t.name)}</td>
+        <td data-label="Nombre"><strong>${esc(t.name)}</strong></td>
         <td data-label="Acciones"><div class="actions">
-          <button class="btn-edit" onclick="editTower(${t.id})">✏ Editar</button>
-          <button class="btn-danger" onclick="deleteTower(${t.id})">🗑 Eliminar</button>
+          <button class="btn-edit" onclick="editTower(${t.id})">✏️ Editar</button>
+          <button class="btn-danger" onclick="deleteTower(${t.id})">🗑️ Eliminar</button>
         </div></td>
       </tr>`).join('')}
     </tbody>
@@ -218,23 +139,23 @@ $('towerForm').addEventListener('submit', async (e) => {
 function editTower(id) {
   const t = state.data.towers.find(x => x.id === id);
   if (!t) return;
-  const name = prompt('Nombre:', t.name);
+  const name = prompt('Nombre de la torre:', t.name);
   if (name === null) return;
   api(`/towers/${id}`, 'PUT', { name })
-    .then(() => { toast('✏ Actualizado'); loadTowers(); })
+    .then(() => { toast('✏️ Torre actualizada'); loadTowers(); })
     .catch(e => toast(e.message, 'error'));
 }
 
 function deleteTower(id) {
-  if (!confirm('¿Eliminar torre? Se eliminarán también sus apartamentos.')) return;
+  if (!confirm('¿Eliminar torre? Se eliminarán también todos sus apartamentos y vehículos asociados.')) return;
   api(`/towers/${id}`, 'DELETE')
-    .then(() => { toast('🗑 Eliminado'); loadTowers(); })
+    .then(() => { toast('🗑️ Torre eliminada'); loadTowers(); loadApartments(); })
     .catch(e => toast(e.message, 'error'));
 }
 
-function updateAptSelect() {
+function updateApartmentTowerSelect() {
   const sel = $('apartmentTower');
-  sel.innerHTML = '<option value="">-- Seleccionar torre --</option>';
+  sel.innerHTML = '<option value="">-- Seleccionar Torre --</option>';
   state.data.towers.forEach(t => {
     const opt = document.createElement('option');
     opt.value = t.id;
@@ -248,7 +169,8 @@ async function loadApartments() {
   try {
     state.data.apartments = await api('/apartments');
     renderApartments();
-    updateNewsSelect();
+    updateVehicleApartmentSelect();
+    updateNewsApartmentSelect();
   } catch (e) { toast(e.message, 'error'); }
 }
 
@@ -259,14 +181,14 @@ function renderApartments() {
     return;
   }
   list.innerHTML = `<table>
-    <thead><tr><th>Número</th><th>Torre</th><th>Acciones</th></tr></thead>
+    <thead><tr><th>Apartamento</th><th>Torre</th><th>Acciones</th></tr></thead>
     <tbody>
       ${state.data.apartments.map(a => `<tr>
-        <td data-label="Número">${esc(a.number)}</td>
+        <td data-label="Apartamento"><strong>${esc(a.number)}</strong></td>
         <td data-label="Torre">${esc(a.tower_name)}</td>
         <td data-label="Acciones"><div class="actions">
-          <button class="btn-edit" onclick="editApt(${a.id})">✏ Editar</button>
-          <button class="btn-danger" onclick="deleteApt(${a.id})">🗑 Eliminar</button>
+          <button class="btn-edit" onclick="editApartment(${a.id})">✏️ Editar</button>
+          <button class="btn-danger" onclick="deleteApartment(${a.id})">🗑️ Eliminar</button>
         </div></td>
       </tr>`).join('')}
     </tbody>
@@ -275,44 +197,137 @@ function renderApartments() {
 
 $('apartmentForm').addEventListener('submit', async (e) => {
   e.preventDefault();
+  const tower_id = parseInt($('apartmentTower').value);
   const number = $('apartmentNumber').value.trim();
-  const tid = parseInt($('apartmentTower').value);
-  if (!number || !tid) { toast('Completa todos los campos', 'error'); return; }
+  if (!tower_id || !number) { toast('Completa todos los campos', 'error'); return; }
   try {
-    await api('/apartments', 'POST', { number, tower_id: tid });
+    await api('/apartments', 'POST', { number, tower_id });
     toast('✅ Apartamento guardado');
     $('apartmentForm').reset();
     loadApartments();
   } catch (e) { toast(e.message, 'error'); }
 });
 
-function editApt(id) {
+function editApartment(id) {
   const a = state.data.apartments.find(x => x.id === id);
   if (!a) return;
-  const number = prompt('Número:', a.number);
+  const number = prompt('Número de apartamento:', a.number);
   if (number === null) return;
   api(`/apartments/${id}`, 'PUT', { number, tower_id: a.tower_id })
-    .then(() => { toast('✏ Actualizado'); loadApartments(); })
+    .then(() => { toast('✏️ Apartamento actualizado'); loadApartments(); })
     .catch(e => toast(e.message, 'error'));
 }
 
-function deleteApt(id) {
-  if (!confirm('¿Eliminar apartamento?')) return;
+function deleteApartment(id) {
+  if (!confirm('¿Eliminar apartamento? Se eliminarán también los vehículos y novedades asociados.')) return;
   api(`/apartments/${id}`, 'DELETE')
-    .then(() => { toast('🗑 Eliminado'); loadApartments(); })
+    .then(() => { toast('🗑️ Apartamento eliminado'); loadApartments(); loadVehicles(); })
     .catch(e => toast(e.message, 'error'));
 }
 
-function updateNewsSelect() {
-  const sel = $('newsApartment');
-  sel.innerHTML = '<option value="">-- Sin apartamento --</option>';
+function updateVehicleApartmentSelect() {
+  const sel = $('vehicleApartment');
+  sel.innerHTML = '<option value="">-- Apartamento (Torre - Número) --</option>';
   state.data.apartments.forEach(a => {
     const opt = document.createElement('option');
     opt.value = a.id;
-    opt.textContent = `${a.number} - ${a.tower_name}`;
+    opt.textContent = `${a.tower_name} - ${a.number}`;
     sel.appendChild(opt);
   });
 }
+
+function updateNewsApartmentSelect() {
+  const sel = $('newsApartment');
+  sel.innerHTML = '<option value="">-- Apartamento Asociado (Opcional) --</option>';
+  state.data.apartments.forEach(a => {
+    const opt = document.createElement('option');
+    opt.value = a.id;
+    opt.textContent = `${a.tower_name} - ${a.number}`;
+    sel.appendChild(opt);
+  });
+}
+
+// ==================== VEHÍCULOS ====================
+async function loadVehicles(search = '') {
+  try {
+    const endpoint = search ? `/vehicles?plate=${search}` : '/vehicles';
+    state.data.vehicles = await api(endpoint);
+    renderVehicles();
+  } catch (e) { toast(e.message, 'error'); }
+}
+
+function renderVehicles() {
+  const list = $('vehiclesList');
+  if (!state.data.vehicles.length) {
+    list.innerHTML = '<div class="empty-state"><div class="empty-icon">🚗</div><p>No hay vehículos registrados</p></div>';
+    return;
+  }
+  list.innerHTML = `<table>
+    <thead><tr><th>Placa</th><th>Marca</th><th>Color</th><th>Apartamento</th><th>Observaciones</th><th>Acciones</th></tr></thead>
+    <tbody>
+      ${state.data.vehicles.map(v => `<tr>
+        <td data-label="Placa"><span class="plate">${v.plate}</span></td>
+        <td data-label="Marca">${esc(v.brand)}</td>
+        <td data-label="Color">${esc(v.color)}</td>
+        <td data-label="Apartamento">${v.apartment_number ? `${v.tower_name} - ${v.apartment_number}` : 'Sin asignar'}</td>
+        <td data-label="Observaciones">${esc(v.observations || '-')}</td>
+        <td data-label="Acciones"><div class="actions">
+          <button class="btn-edit" onclick="editVehicle(${v.id})">✏️ Editar</button>
+          <button class="btn-danger" onclick="deleteVehicle(${v.id})">🗑️ Eliminar</button>
+        </div></td>
+      </tr>`).join('')}
+    </tbody>
+  </table>`;
+}
+
+$('vehicleForm').addEventListener('submit', async (e) => {
+  e.preventDefault();
+  const plate = $('vehiclePlate').value.toUpperCase().trim();
+  const brand = $('vehicleBrand').value.trim();
+  const color = $('vehicleColor').value;
+  const apartment_id = parseInt($('vehicleApartment').value) || null;
+  const obs = $('vehicleObservations').value.trim();
+  if (!plate || !brand || !color) { toast('Completa los campos obligatorios', 'error'); return; }
+  try {
+    await api('/vehicles', 'POST', { plate, brand, color, apartment_id, observations: obs });
+    toast('✅ Vehículo guardado');
+    $('vehicleForm').reset();
+    loadVehicles();
+  } catch (e) { toast(e.message, 'error'); }
+});
+
+function editVehicle(id) {
+  const v = state.data.vehicles.find(x => x.id === id);
+  if (!v) return;
+  const plate = prompt('Placa:', v.plate);
+  if (plate === null) return;
+  const brand = prompt('Marca:', v.brand);
+  if (brand === null) return;
+  const color = prompt('Color:', v.color);
+  if (color === null) return;
+  const obs = prompt('Observaciones:', v.observations || '');
+  if (obs === null) return;
+  
+  api(`/vehicles/${id}`, 'PUT', { plate: plate.toUpperCase(), brand, color, apartment_id: v.apartment_id, observations: obs })
+    .then(() => { toast('✏️ Vehículo actualizado'); loadVehicles(); })
+    .catch(e => toast(e.message, 'error'));
+}
+
+function deleteVehicle(id) {
+  if (!confirm('¿Eliminar vehículo?')) return;
+  api(`/vehicles/${id}`, 'DELETE')
+    .then(() => { toast('🗑️ Vehículo eliminado'); loadVehicles(); })
+    .catch(e => toast(e.message, 'error'));
+}
+
+$('vehicleSearch').addEventListener('input', (e) => {
+  const val = e.target.value.trim();
+  if (val.length < 2) {
+    $('vehicleSearchResults').style.display = 'none';
+    return;
+  }
+  loadVehicles(val);
+});
 
 // ==================== NOVEDADES ====================
 async function loadNews() {
@@ -332,13 +347,13 @@ function renderNews() {
     <thead><tr><th>Título</th><th>Descripción</th><th>Apartamento</th><th>Fecha</th><th>Acciones</th></tr></thead>
     <tbody>
       ${state.data.news.map(n => `<tr>
-        <td data-label="Título">${esc(n.title)}</td>
-        <td data-label="Descripción">${esc((n.description || '').substring(0, 50))}</td>
-        <td data-label="Apartamento">${n.apartment_number ? `${n.apartment_number} - ${n.tower_name}` : '-'}</td>
+        <td data-label="Título"><strong>${esc(n.title)}</strong></td>
+        <td data-label="Descripción">${esc((n.description || '').substring(0, 40))}</td>
+        <td data-label="Apartamento">${n.apartment_number ? `${n.tower_name} - ${n.apartment_number}` : '-'}</td>
         <td data-label="Fecha">${fmtDate(n.created_at)}</td>
         <td data-label="Acciones"><div class="actions">
-          <button class="btn-edit" onclick="editNews(${n.id})">✏ Editar</button>
-          <button class="btn-danger" onclick="deleteNews(${n.id})">🗑 Eliminar</button>
+          <button class="btn-edit" onclick="editNews(${n.id})">✏️ Editar</button>
+          <button class="btn-danger" onclick="deleteNews(${n.id})">🗑️ Eliminar</button>
         </div></td>
       </tr>`).join('')}
     </tbody>
@@ -366,14 +381,14 @@ function editNews(id) {
   const desc = prompt('Descripción:', n.description || '');
   if (desc === null) return;
   api(`/news/${id}`, 'PUT', { title, description: desc, apartment_id: n.apartment_id })
-    .then(() => { toast('✏ Actualizado'); loadNews(); })
+    .then(() => { toast('✏️ Novedad actualizada'); loadNews(); })
     .catch(e => toast(e.message, 'error'));
 }
 
 function deleteNews(id) {
   if (!confirm('¿Eliminar novedad?')) return;
   api(`/news/${id}`, 'DELETE')
-    .then(() => { toast('🗑 Eliminado'); loadNews(); })
+    .then(() => { toast('🗑️ Novedad eliminada'); loadNews(); })
     .catch(e => toast(e.message, 'error'));
 }
 
