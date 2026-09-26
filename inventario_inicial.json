@@ -1,0 +1,557 @@
+{
+  "coloresCSS": {
+    "gris": "#9ca3af",
+    "negro": "#1f2937",
+    "blanco": "#f9fafb",
+    "rojo": "#ef4444",
+    "azul": "#3b82f6",
+    "verde": "#22c55e",
+    "vino tinto": "#7f1d1d",
+    "café": "#92400e",
+    "amarillo": "#fbbf24"
+  },
+  "inventario": {
+    "KQL441": { "marca": "Mazda", "color": "rojo", "danos": "Sin rayones ni golpes visibles" },
+    "BFW416": { "marca": "Mitsubishi", "color": "gris", "danos": "Rayones múltiples, capó deteriorado pintura, 2 golpes puerta copiloto, bumper delantero con rayones/pintura levantada + 2 golpes, 1 golpe puerta conductor." },
+    "CFI912": { "marca": "Ford", "color": "verde", "danos": "Bumper delantero y trasero, capó y techo deteriorado en pintura, luz stop izquierda envuelta en cinta, golpes en puerta de conductor." },
+    "CFU478": { "marca": "Chevrolet", "color": "vino tinto", "danos": "Rayones múltiples sin golpes visibles." },
+    "CMR990": { "marca": "Renault", "color": "rojo", "danos": "Rayones múltiples, 1 golpe trasera lateral izquierda." },
+    "CPR925": { "marca": "Chevrolet", "color": "gris", "danos": "Rayones múltiples, 1 golpe cerca de la tapa de gasolina." },
+    "CVR425": { "marca": "Mazda", "color": "negro", "danos": "Golpe contundente bumper delantero derecho, golpe contundente parte trasera lado derecho, rayones múltiples, golpes tapa gasolina." },
+    "CUR546": { "marca": "Mazda", "color": "gris", "danos": "Rayones múltiples, 1 golpe puerta copiloto, abolladuras en puerta trasera y conductor, manija conductor con tapa de chapa ausente." },
+    "DAY985": { "marca": "Chevrolet", "color": "azul", "danos": "Rayones múltiples, pintura levantada bumper delantero, espejo derecho y guardabarros derecho, deterioro pintura capó y techo, 1 rayón profundo puerta trasera derecha." },
+    "DDK505": { "marca": "Kia", "color": "gris", "danos": "Parachoques delantero ausente, rayones múltiples, 1 golpe puerta conductor." },
+    "DNQ371": { "marca": "Renault", "color": "negro", "danos": "Rayones en espejos y parachoques delantero, 1 golpe puerta trasera lateral izquierdo." },
+    "DTR413": { "marca": "Renault", "color": "rojo", "danos": "Rayones múltiples, 5 golpes puerta copiloto, 3 golpes puerta trasera derecha, stop izquierdo partido, 1 golpe puerta trasera izquierda." },
+    "EFT676": { "marca": "Chevrolet", "color": "blanco", "danos": "Rayones múltiples, golpe bumper trasero con 5 despintadas lado derecho y 3 lado izquierdo." },
+    "EQL393": { "marca": "Renault", "color": "blanco", "danos": "Rayones múltiples, 1 golpe en capó parte frontal." },
+    "FJQ068": { "marca": "Chevrolet", "color": "blanco", "danos": "Rayones múltiples, 1 golpe en puerta de maletero." },
+    "FXY366": { "marca": "Renault", "color": "blanco", "danos": "Rayones múltiples, 1 golpe parte trasera izquierda." },
+    "GCZ200": { "marca": "Chevrolet", "color": "negro", "danos": "Rayones múltiples, 1 golpe puerta copiloto, 1 golpe puerta trasera izquierda." },
+    "GDK945": { "marca": "Chevrolet", "color": "negro", "danos": "Rayones múltiples, golpe parachoques trasero, 2 golpes contundentes puerta portaequipaje, 2 golpes puerta trasera derecha, 1 golpe puerta copiloto, 1 golpe capó lado izquierdo." },
+    "GSY642": { "marca": "Renault", "color": "gris", "danos": "Rayones múltiples sin golpes visibles, vehículo sucio." },
+    "IFX712": { "marca": "Renault", "color": "negro", "danos": "Rayones múltiples, golpe puerta trasera derecha (chapa), chapa puerta copiloto dañada, golpe maletero, pintura levantada bumper trasero." },
+    "INN463": { "marca": "Renault", "color": "gris", "danos": "Rayones múltiples, 2 golpes puerta trasera izquierda, 1 golpe puerta trasera derecha, 1 golpe maletero, deterioro pintura capó." },
+    "IVO011": { "marca": "Nissan", "color": "negro", "danos": "Rayones múltiples sin golpes visibles." },
+    "JGT612": { "marca": "Kia", "color": "negro", "danos": "Rayones múltiples, golpe manija puerta copiloto, golpe puerta trasera derecha, 3 golpes puerta trasera izquierda, 3 golpes puerta conductor." },
+    "JIM056": { "marca": "Mazda", "color": "negro", "danos": "Rayones múltiples, golpe puerta trasera derecha y puerta trasera izquierda." },
+    "KBN310": { "marca": "Renault", "color": "blanco", "danos": "Rayones múltiples, 3 rayones profundos puerta copiloto, sin golpes visibles." },
+    "KKK437": { "marca": "Kia", "color": "negro", "danos": "Rayones múltiples, 1 golpe puerta conductor, 2 golpes inicio puerta conductor, 2 golpes esquina puerta copiloto, 1 golpe con descascaramiento en puerta de conductor" },
+    "KLP878": { "marca": "Renault", "color": "negro", "danos": "Rayones múltiples, 1 golpe parte trasera puerta copiloto, abolladuras múltiples puerta conductor, 2 golpes puerta conductor, 1 golpe parte trasera puerta conductor, 2 golpes lateral izquierdo parte delantera." },
+    "KLR190": { "marca": "Hyundai", "color": "azul", "danos": "Rayones en espejos, rayones bumper delantero izquierda, golpes múltiples puerta trasera derecha." },
+    "KLR562": { "marca": "Kia", "color": "gris", "danos": "Rayones múltiples, 1 golpe puerta trasera derecha, rayones bumper trasero, 1 golpe puerta trasera derecha, pintura levantada bumper trasero." },
+    "LCW848": { "marca": "Chevrolet", "color": "negro", "danos": "Rayones múltiples sin golpes visibles." },
+    "LKK113": { "marca": "Mazda", "color": "azul", "danos": "Rayones múltiples, 1 golpe en puerta de conductor." },
+    "LPT313": { "marca": "Kia", "color": "gris", "danos": "Rayones múltiples, 1 golpe guardabarros trasero derecho, 1 golpe puerta trasera derecha, 1 golpe puerta copiloto." },
+    "MHQ353": { "marca": "Kia", "color": "rojo", "danos": "Rayones múltiples, múltiples golpes en puertas, guardabarros trasero derecho, maletero." },
+    "MIS352": { "marca": "Hyundai", "color": "gris", "danos": "Abolladuras parachoques trasero izquierdo, golpe manija conductor, descascarado puerta conductor, golpes puertas, parachoques delantero levantado." },
+    "MVR787": { "marca": "Mazda", "color": "blanco", "danos": "Pintura levantada puerta conductor, espejo izquierdo y bumper delantero derecho, bumper delantero con descascaramiento bumper lado izquierdo" },
+    "MWS830": { "marca": "Hyundai", "color": "blanco", "danos": "Pintura levantada frontal y puerta trasera lateral derecha." },
+    "NAT051": { "marca": "Renault", "color": "gris", "danos": "Rayones múltiples, golpe puerta trasera derecha, bumper delantero con pintura levantada, guardabarros con golpe leve." },
+    "NFY785": { "marca": "Hyundai", "color": "gris", "danos": "Rayones en espejos, 1 golpe puerta trasera izquierda." },
+    "POY165": { "marca": "Mazda", "color": "rojo", "danos": "1 rayón bumper delantero derecho, 2 golpes capó, 1 golpe puerta trasera derecha." },
+    "PTS428": { "marca": "Hyundai", "color": "negro", "danos": "Rayones múltiples, 1 golpe cerca tapa de gasolina." },
+    "QJR512": { "marca": "Renault", "color": "blanco", "danos": "Sin golpes ni rayones visibles, vehículo sucio." },
+    "KQP934": { "marca": "Chevrolet", "color": "gris", "danos": "Rayones múltiples sin golpes visibles." },
+    "HYC249": { "marca": "Chevrolet", "color": "azul", "danos": "Rayones múltiples, 1 golpe puerta copiloto." },
+    "CHO833": { "marca": "Mazda", "color": "café", "danos": "Rayones múltiples, luz stop izquierdo partida, parachoques delantero derecho partido, 1 golpe trasero lateral izquierdo." },
+    "PUK579": { "marca": "Kia", "color": "gris", "danos": "Rayones múltiples sin golpes visibles." },
+    "KHB718": { "marca": "Chevrolet", "color": "blanco", "danos": "Sin golpes ni rayones visibles." },
+    "FJK430": { "marca": "Renault", "color": "gris", "danos": "Pintura levantada parachoques delantero, 1 golpe puerta copiloto, rayones múltiples." },
+    "IVN782": { "marca": "Kia", "color": "blanco", "danos": "1 golpe puerta trasera derecha sin rayones visibles." },
+    "KNQ671": { "marca": "Mazda", "color": "rojo", "danos": "rayones multiples sin golpes visibles" },
+    "TZP663": { "marca": "Hyundai", "color": "amarillo", "danos": "Rayones múltiples sin golpes visibles." },
+    "HZU909": { "marca": "Chevrolet", "color": "negro", "danos": "Rayones múltiples, 3 golpes en puerta trasera, 3 golpes en puerta trasera lado izquierdo, 4 golpes en puerta conductor, 2 golpes en puerta de copiloto, 2 golpes en parachoques trasero." },
+    "JIN300": { "marca": "Chevrolet", "color": "negro", "danos": "Rayones múltiples 01 golpe en guardabarros trasero lado izquierdo 01 golpe en capo" },
+    "CKH785": { "marca": "Chevrolet", "color": "azul", "danos": "Rayones múltiples, 01 GOLPE en parte derecha de BUMPER DELANTERO, 01 GOLPE en puerta de portaequipaje, 01 luz stop partida lado derecho" },
+    "GYQ215": { "marca": "Mazda", "color": "rojo", "danos": "Será un golpe contundente parte baja de la puerta de copiloto, 03 golpes puerta trasera al lado derecho, 02 golpes guardabarros trasero lado derecho, un golpe bumper trasero, rayón golpe con descaramiento de pintura en bumper delantero lado izquierdo" },
+    "EKW266": { "marca": "Chery", "color": "azul", "danos": "Rayones múltiples, bumper trasero partido en lado derecho, golpe contundente en maletero esto trasero, stop trasero lado izquierdo y derecho con fisuras, bomberos delantero lado izquierdo con será un golpe, guardabarros delantero lado derecho con cero un golpe" },
+    "IIO701": { "marca": "Renault", "color": "blanco", "danos": "Rayones múltiples con, 01 golpe en guardabarros delantero lado derecho 01 golpe lado derecho" },
+    "HDX444": { "marca": "Chevrolet", "color": "gris", "danos": "Rayones múltiples, sin golpes visibles, vehículo sucio" },
+    "CPB657": { "marca": "Renault", "color": "blanco", "danos": "Rayones múltiples, sin golpes visibles" },
+    "IGK996": { "marca": "Ford", "color": "blanco", "danos": "Rayones múltiples en espejos sin golpes visibles" },
+    "HMN887": { "marca": "Kia", "color": "gris", "danos": "Raciones múltiples, 1 golpe en guardabarros trasero parte izquierda, bumper levantado en parte izquierda" },
+    "HMP282": { "marca": "Mazda", "color": "gris", "danos": "Rayo de múltiples con un rayón con despintada en parte trasera" },
+    "IFY901": { "marca": "Fiat", "color": "gris", "danos": "Canciones múltiples con cero un golpe en puerta de copiloto y golpes múltiples en puerta trasera lado derecho" },
+    "GTM835": { "marca": "Suzuki", "color": "gris", "danos": "Rayones múltiples sin golpes visibles" },
+    "CXC322": { "marca": "Chevrolet", "color": "gris", "danos": "1 golpe en puerta de copiloto, un golpe guardabarros derecho, Rayones múltiples" },
+    "CCQ702": { "marca": "Volkswagen", "color": "gris", "danos": "Rayones múltiples, golpes múltiples en guardabarros trasero lado izquierdo" },
+    "KVO022": { "marca": "Kia", "color": "blanco", "danos": "Rayones múltiples sin golpes visibles" },
+    "QOU584": { "marca": "Nissan", "color": "gris", "danos": "sin rayones ni golpes visibles" },
+    "HAO399": { "marca": "Ford", "color": "blanco", "danos": "Rayones múltiples sin golpes visibles" },
+    "UBQ983": { "marca": "Ford", "color": "blanco", "danos": "Será un golpe en bumper delantero lado izquierdo, despegado en esquina puerta de copiloto" },
+    "IIT875": { "marca": "Renault", "color": "negro", "danos": "Radio de múltiple sin golpes visibles" },
+    "KPZ646": { "marca": "Renault", "color": "gris", "danos": "radio de múltiples con 1 golpe en puerta copiloto" },
+    "GDK504": { "marca": "Renault", "color": "blanco", "danos": "Rayones múltiples sin golpes visibles" },
+    "LZL300": { "marca": "Kia", "color": "gris", "danos": "Rayones múltiples sin golpes visibles" },
+    "QNY190": { "marca": "Mazda", "color": "negro", "danos": "01 rayón en puerta trasera lado derecho, ni golpes visibles" },
+    "NMM977": { "marca": "Kia", "color": "blanco", "danos": "Rayones múltiples sin golpes visibles" },
+    "JYR161": { "marca": "Chevrolet", "color": "negro", "danos": "Rayones múltiples sin golpes visibles" },
+    "PLQ889": { "marca": "Kia", "color": "amarillo", "danos": "Rayones múltiples sin golpes visibles" },
+    "EQK889": { "marca": "Kia", "color": "amarillo", "danos": "Rayones múltiples, sin golpes visibles" },
+    "BWX442": { "marca": "Renault", "color": "blanco", "danos": "Será un golpe en lateral derecho parte delantera, un golpe en puerta copiloto, Rayones múltiples, los stock derecha encintada" },
+    "KIE528": { "marca": "Chevrolet", "color": "gris", "danos": "02 golpes en puerta de copiloto, 01 golpe en puerta trasera lado derecho, 01 golpe en puerta trasera lado izquierdo" },
+    "JJV564": { "marca": "Renault", "color": "rojo", "danos": "Rayones múltiples sin golpes visibles" },
+    "MSV534": { "marca": "Chevrolet", "color": "azul", "danos": "Rayones múltiples, con golpe con rayón contundente entre las puertas de copiloto y trasera" },
+    "KCR717": { "marca": "Mazda", "color": "azul", "danos": "Rayones en guardabarros delantero lado izquierdo" },
+    "CEI989": { "marca": "Mazda", "color": "verde", "danos": "Rayones y golpes múltiples con descascaramiento en pintura de bumper delantero" },
+    "HZS449": { "marca": "Honda", "color": "gris", "danos": "rayones múltiples sin golpes visibles" },
+    "CPR276": { "marca": "Mazda", "color": "rojo", "danos": "Rayones múltiples cero un golpe en puerta de copiloto descascaramiento en pintura en parte baja de vehículo parte derecha y bumper delantero lado izquierdo" },
+    "ZIS441": { "marca": "Renault", "color": "negro", "danos": "Ratones y golpes múltiples, chapa de maletero ausente, desascamiento en pintura en puerta trasera lado izquierdo, capo y bumper delantero lado derecho" },
+    "JKL036": { "marca": "Renault", "color": "blanco", "danos": "Rayones múltiples luz stop lado izquierdo partida sin golpes visibles" },
+    "CQH135": { "marca": "Hyundai", "color": "gris", "danos": "Dorado, Rayones múltiples con cero un golpe en guardabarros delantero lado derecho 02 golpes en puerta copiloto 0 un golpe en puerta trasera lado derecho" },
+    "QVV866": { "marca": "Suzuki", "color": "gris", "danos": "Sin rayones ni golpes visibles" },
+    "NQZ484": { "marca": "Buil", "color": "gris", "danos": "Rayones múltiples con golpe en bumper delantero lado derecho" },
+    "POU316": { "marca": "Renault", "color": "blanco", "danos": "Rayón con descascaramiento en bumper delantero lado izquierdo, 01 golpe en puerta conductor, 01 golpe contundente en guardabarros delantero lado izquierdo" },
+    "NXY698": { "marca": "Renault", "color": "gris", "danos": "Rayones múltiples sin golpes visibles" },
+    "HYL591": { "marca": "Volkswagen", "color": "gris", "danos": "Rayones múltiples, despintado cerca de stop lado derecho y guardabarros trasero derecho" },
+    "CUO691": { "marca": "Zotye", "color": "gris", "danos": "Raciones múltiples, un golpe en puerta de conductor" },
+    "JIK055": { "marca": "Renault", "color": "gris", "danos": "Rayones múltiples, hacer un rayón profundo en puerta trasera lado izquierdo, será un golpe en puerta de maletero" },
+    "MYN154": { "marca": "Toyota", "color": "blanco", "danos": "Sin rayones ni golpes visibles" },
+    "IBK503": { "marca": "Renault", "color": "rojo", "danos": "Rayones múltiples, desascamiento en pintura en lado derecho, maletero, puerta trasera lado izquierdo, parabrisas golpe en puerta trasera al lado izquierdo" },
+    "MHR059": { "marca": "Chevrolet", "color": "gris", "danos": "Rayones múltiples con golpes contundentes en puerta trasera al lado izquierdo y parte trasera al lado izquierdo bumper trasero lado izquierdo, 01 golpe en capó" },
+    "TAY437": { "marca": "DFSK", "color": "blanco", "danos": "Rayones múltiples con descascaramiento en pintura en puerta de maletero, 01 golpe en parte trasera lado derecho, deterioro en pintura en guardabarros delantero lado derecho, 01 de 02 rejilla delantera ausente" },
+    "KLR650": { "marca": "Hyundai", "color": "gris", "danos": "Sin rayones ni golpes visibles" },
+    "KDS968": { "marca": "Hyundai", "color": "gris", "danos": "Rayones múltiples, deterioro en pintura de manijas de las puertas,02 golpes en guardabarros trasero lado izquierdo" },
+    "CLW265": { "marca": "Volkswagen", "color": "gris", "danos": "Sin golpes ni rayones visibles" },
+    "HYN257": { "marca": "Honda", "color": "gris", "danos": "Sin rayones ni golpes visibles" },
+    "UBT036": { "marca": "Mazda", "color": "gris", "danos": "Rayones múltiples sin golpes visibles" },
+    "IPR821": { "marca": "Renault", "color": "blanco", "danos": "Rayones múltiples, 01 golpe en puerta trasera lado derecho,01 golpe en guardabarros trasero lado izquierdo" },
+    "EHT174": { "marca": "Ford", "color": "blanco", "danos": "Rayones múltiples, filo de puerta copiloto despintada" },
+    "CQK451": { "marca": "Chevrolet", "color": "rojo", "danos": "Rayones múltiples, será un golpe en puerta de copiloto" },
+    "GDN856": { "marca": "Kia", "color": "rojo", "danos": "Naranja rayones múltiples sin golpes visibles" },
+    "LLZ188": { "marca": "Suzuki", "color": "blanco", "danos": "Rayones multiples sin golpes visibles" },
+    "PTS052": { "marca": "Kia", "color": "gris", "danos": "Sin rayones ni golpes visibles" },
+    "NMR139": { "marca": "Kia", "color": "gris", "danos": "Sin rayones ni golpes visibles" },
+    "NSK176": { "marca": "Mazda", "color": "gris", "danos": "Sin rayones ni golpes visibles" },
+    "KIC721": { "marca": "Renault", "color": "negro", "danos": "Razones múltiples con deterioro en pintura en todo el vehículo,  01 golpe en puerta de copiloto" }
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{
